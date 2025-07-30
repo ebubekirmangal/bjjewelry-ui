@@ -1,0 +1,18 @@
+.logo{
+    width: 45px;
+    border-radius: 50px;
+    margin-right: 5px;
+}
+
+.link{
+    transition: transform 0.3s ease;
+    padding: 5px;
+}
+.link:hover{
+    color: purple;
+}
+.link.active{
+    transform: translateY(-4px);
+    border-bottom: 2px solid purple;
+    color: purple;
+}
