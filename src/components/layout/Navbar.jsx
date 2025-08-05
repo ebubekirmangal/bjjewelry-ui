@@ -1,4 +1,3 @@
-import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -7,17 +6,15 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-// import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import Logo from "../../assets/image/elmas.jpg";
 import styles from "./navbar.module.css";
-// import Link from "@mui/material/Link";
 import { useState } from "react";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import {Link} from "react-router-dom";
 
-const pages = ["Anasayfa", "Ürünler", "Kataloglar"];
+const pages = [{title:"Anasayfa",link:"/"}, {title:"Ürünler",link:"/products"}, {title:"Kataloglar",link:"/catalogs"}];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function Navbar() {
@@ -158,8 +155,8 @@ const [activeIndex, setActiveIndex] = useState(null);
             }}
           >
             {pages.map((page,index) => (
-              <Box
-                key={page}
+              <Link component="RouterLink" to={page.link}
+                key={index}
                 onClick={()=>handleCloseNavMenu(index)}
                 sx={{
                   my: 2,
@@ -173,14 +170,14 @@ const [activeIndex, setActiveIndex] = useState(null);
                 }}
                 className={`${styles.link} ${activeIndex === index ? styles.active : ""}`}
               >
-                {page}
-              </Box>
+                {page.title}
+              </Link>
               //pages array olacak title ve src olarak
             ))}
           </Box>
 
           {/* Sağ: Avatar her zaman */}
-          {/*Buraya sepet kısmı eklenecek badge ile birlikte */}
+          {/*TODO:Buraya sepet kısmı eklenecek badge ile birlikte , profile settings logout log in işlemleri halledilecek*/}
           <Box sx={{ flexGrow: 0}}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -229,8 +226,8 @@ const [activeIndex, setActiveIndex] = useState(null);
             sx={{ display: { xs: "block", md: "none" } }}
           >
             {pages.map((page) => (
-              <MenuItem key={page} onClick={handleCloseNavMenu}>
-                <Typography textAlign="center">{page}</Typography>
+              <MenuItem key={page.title} onClick={handleCloseNavMenu}>
+                <Typography textAlign="center">{page.title}</Typography>
               </MenuItem>
             ))}
           </Menu>
